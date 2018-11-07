@@ -1,0 +1,26 @@
+version: "3.2"
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80 #app will be available at 80 port of your host
+    volumes:
+      - ./docker/nginx/conf.d/template.conf:/etc/nginx/conf.d/template.conf
+      - ./src:/var/www
+      - ./docker/.logs/nginx:/var/log/nginx
+    links:
+      - php
+
+  php:
+    build: ./docker/php
+    volumes:
+      - ./src:/var/www
+      - ./docker/.logs/php:/var/log/php
+    links:
+      - db
+
+  db:
+    build: ./docker/db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
