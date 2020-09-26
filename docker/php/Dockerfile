@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     libmagickwand-dev \
     git \
     zip \
-    procps
+    procps \
     wget
 
 WORKDIR /var/www
